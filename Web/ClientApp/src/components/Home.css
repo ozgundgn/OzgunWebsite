@@ -1,0 +1,65 @@
+﻿.banner-image {
+    width: 100%; /*1440px*/
+    height: 691px;
+    align-self: stretch;
+    flex-grow: 0;
+    /*margin: 112px 0 0;*/
+    padding: 369px 238px 254px 214px;
+}
+
+.future {
+    width: 335px;
+    height: 68px;
+    flex-grow: 0;
+    margin: 0 0 0 4px;
+    font-family: Audiowide;
+    font-size: 70px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: rgba(73, 84, 100, 0.8);
+}
+
+.software-development {
+    width: 407px;
+    height: 48px;
+    flex-grow: 0;
+    margin: 10px 242px 10px 0;
+    font-family: Barlow;
+    font-size: 48px;
+    font-weight: bold;
+    font-stretch: condensed;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #495464;
+}
+
+.main-news-span {
+    width: 384.3px;
+    height: 48px;
+    margin: 10px 0 0;
+    font-family: Barlow;
+    font-size: 40px;
+    font-weight: normal;
+    font-stretch: condensed;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #495464;
+}
+
+.main-news-card {
+    width: 384.3px;
+    height: 384px;
+    flex-grow: 0;
+    margin: 0 0 10px;
+    padding: 158px 111.1px 158px 114.1px;
+    border-radius: 10px;
+    background-image: url("https://media.istockphoto.com/id/1466262366/photo/software-development-branching-strategy-process-workflow-with-flowchart-diagram-showing.jpg?s=612x612&w=0&k=20&c=U3BQoK-xdLwhPKLdt8XxTfmTejJvcuGUzfDdACYiJN8=")
+}

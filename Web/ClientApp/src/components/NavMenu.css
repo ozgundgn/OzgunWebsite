@@ -1,0 +1,26 @@
+﻿a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+a.text-dark {
+    font-family: Barlow;
+    font-size: 20px;
+    font-stretch: condensed;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
