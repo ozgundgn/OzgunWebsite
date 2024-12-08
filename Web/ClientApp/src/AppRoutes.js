@@ -2,7 +2,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { TodoLists } from "./components/TodoLists";
-import { Navigate } from 'react-router-dom';
+import { Description } from "./components/Description"
 const AppRoutes = [
     //{
     //  path: "/",
@@ -24,6 +24,10 @@ const AppRoutes = [
     {
         path: '/todo-list',
         element: <TodoLists />
+    },
+    {
+        path: '/todo-list/:title',
+        element:<Description/>
     }
 ];
 
