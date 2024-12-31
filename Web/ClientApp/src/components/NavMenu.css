@@ -1,4 +1,6 @@
-﻿a.navbar-brand {
+﻿@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -13,14 +15,103 @@ a.text-dark {
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (max-width:579px){
+    .logo {
+        display: none
+    }
+    .navmenu-div {
+        top: 0;
+    }
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+.navbar-expand-sm{
+    border-radius:65px;
+}
+.navbar-expand-sm .navbar-toggler {
+    border-radius: 65px;
+    margin-left: 1.1rem;
+    margin-right: 1.1rem;
+}
+
+.navmenu-div {
+    position: fixed;
+    right: 0;
+    margin-top: 14%;
+    background-color: #fff;
+    z-index: 2;
+    margin-right: 20px;
+    border-radius: 65px;
+}
+.nav-tabs{
+    border-bottom:0px;
+}
+
+.home-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/home.png") no-repeat repeat center / cover;
+}
+
+.blog-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/blog.png") no-repeat repeat center / cover;
+}
+.project-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/project.png") no-repeat repeat center / cover;
+}
+
+.contact-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/contact.png") no-repeat repeat center / cover;
+}
+
+.about-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/about.png") no-repeat repeat center / cover;
+}
+
+.download-cv-icon {
+    width: 30px; /* Adjust size */
+    height: 30px;
+    background: url("../../public/images/download-cv.png") no-repeat repeat center / cover;
+}
+.active-menu {
+    border-radius: 60px;
+    background-color: orange;
+    border: 0.1px none orange;
+    transition: 1s ease-in-out;
+}
+.logo-name {
+    width: 269px;
+    height: 33px;
+    font-family: "Rubik", serif;
+    font-size: 33px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #1d267c;
+}
+.logo {
+    height: 90px;
+    padding: 3rem 0 4rem 8rem;
 }

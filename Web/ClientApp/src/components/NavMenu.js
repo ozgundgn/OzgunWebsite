@@ -12,19 +12,39 @@ export class NavMenu extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.navIconHover = this.navIconHover.bind(this)
+        this.navIconHover = this.navIconHover.bind(this);
+
         this.state = {
             collapsed: true,
-            navMenuHidden:true
+            navMenuHidden: true,
+            collapsedWait: true,
+            activeMenu: "home"
         };
     }
 
     toggleNavbar() {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
+        if (!this.state.collapsed) {
+            this.setState({
+                collapsed: !this.state.collapsed,
+            });
+            setTimeout(() => {
+                this.setState({
+                    collapsedWait: this.state.collapsed,
+                });
+            }, 500);
+        } else {
+            this.setState({
+                collapsedWait: !this.state.collapsed,
+                collapsed: !this.state.collapsed,
+            });
+        }
     }
+    changeActiveMenu(menu) {
+        this.setState({
+            activeMenu: menu
+        })
 
+    }
     navIconHover() {
         this.setState({
             navMenuHidden: !this.state.navMenuHidden
@@ -33,41 +53,54 @@ export class NavMenu extends Component {
 
     render() {
         return (
-            <div style={{ position: "fixed", right: 0, marginTop: "17%", backgroundColor: 'white',zIndex:1}}>
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow" container light>
+
+            <div className="navmenu-div">
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom border-top box-shadow" light>
                     {/* <NavbarBrand tag={Link} to="/">GioWebsite.Web</NavbarBrand>*/}
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                        <ul className="navbar-nav flex-grow">
-                            <Nav tabs vertical onMouseOver={this.navIconHover} >
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/"><i className="bi bi-twitter-x"></i></NavLink>
+                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse my-3" isOpen={!this.state.collapsed} navbar>
+                        <ul className="navbar-nav flex-grow my-1">
+                            <Nav tabs vertical onMouseOver={this.navIconHover} hidden={!this.state.collapsedWait} >
+                                <NavItem className={this.state.activeMenu === "home" ? "active-menu" : ""} >
+                                    <NavLink tag={Link} className="text-dark" to="/"><div className="home-icon"></div></NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark"><i className="bi bi-file-earmark-person"></i></NavLink>
+                                <NavItem className={this.state.activeMenu === "blog" ? "active-menu" : ""}>
+                                    <NavLink tag={Link} className="text-dark"><div className="blog-icon"></div></NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark"><i className="bi bi-feather"></i></NavLink>
+                                <NavItem className={this.state.activeMenu === "projects" ? "active-menu" : ""}>
+                                    <NavLink tag={Link} className="text-dark"><div className="project-icon"></div></NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className="text-dark"><i className="bi bi-folder2-open"></i> </NavLink>
+                                <NavItem className={this.state.activeMenu === "aboutme" ? "active-menu" : ""}>
+                                    <NavLink className="text-dark"><div className="about-icon"></div></NavLink>
+                                </NavItem>
+                                <NavItem className={this.state.activeMenu === "contact" ? "active-menu" : ""}>
+                                    <NavLink className="text-dark"><div className="contact-icon"></div></NavLink>
+                                </NavItem>
+                                <NavItem className={this.state.activeMenu === "cv" ? "active-menu" : ""}>
+                                    <NavLink className="text-dark"><div className="download-cv-icon"></div></NavLink>
                                 </NavItem>
                                 {/*<NavItem className="download-cv">*/}
                                 {/*    <a className="nav-link text-dark" href="/Identity/Account/Manage">Account</a>*/}
                                 {/*</NavItem>*/}
                             </Nav>
-                            <Nav tabs vertical hidden={this.state.navMenuHidden} >
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                            <Nav tabs vertical onMouseLeave={this.navIconHover} hidden={this.state.navMenuHidden && this.state.collapsed} >
+                                <NavItem onClick={(e) => this.changeActiveMenu("home")}>
+                                    <NavLink tag={Link} className="text-dark home" to="/" >Home</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                                <NavItem onClick={(e) => this.changeActiveMenu("blog")} >
+                                    <NavLink tag={Link} className="text-dark" to="/blog">Blog</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch Data</NavLink>
+                                <NavItem onClick={(e) => this.changeActiveMenu("projects")}>
+                                    <NavLink tag={Link} className="text-dark" to="/projects">Projects</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="nav-link text-dark" to="/todo-list">Todo List</NavLink>
+                                <NavItem onClick={(e) => this.changeActiveMenu("aboutme")}>
+                                    <NavLink tag={Link} className="nav-link text-dark" to="/aboutme">About Me</NavLink>
+                                </NavItem>
+                                <NavItem onClick={(e) => this.changeActiveMenu("contact")}>
+                                    <NavLink tag={Link} className="nav-link text-dark" to="/contact">Contact</NavLink>
+                                </NavItem>
+                                <NavItem onClick={(e) => this.changeActiveMenu("cv")}>
+                                    <NavLink tag={Link} className="nav-link text-dark" to="/cv">CV</NavLink>
                                 </NavItem>
                                 {/*<NavItem className="download-cv">*/}
                                 {/*    <a className="nav-link text-dark" href="/Identity/Account/Manage">Account</a>*/}

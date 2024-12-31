@@ -10,6 +10,52 @@
 
 import followIfLoginRedirect from './components/api-authorization/followIfLoginRedirect';
 
+export class BlogsClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getBlogList(): Promise<BlogsVm> {
+        let url_ = this.baseUrl + "api/Blogs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        }
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetBlogList(_response);
+        })
+    }
+
+    protected processGetBlogList(response: Response): Promise<BlogsVm> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = BlogsVm.fromJs(resultData200);
+                return result200;
+            })
+        }
+        else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<BlogsVm>(null as any);
+
+    }
+}
 export class TodoItemsClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -54,14 +100,14 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PaginatedListOfTodoItemBriefDto.fromJS(resultData200);
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = PaginatedListOfTodoItemBriefDto.fromJS(resultData200);
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<PaginatedListOfTodoItemBriefDto>(null as any);
@@ -93,15 +139,15 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return result200;
+
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<number>(null as any);
@@ -135,11 +181,11 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -169,11 +215,11 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -207,11 +253,11 @@ export class TodoItemsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -250,14 +296,14 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TodosVm.fromJS(resultData200);
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = TodosVm.fromJS(resultData200);
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<TodosVm>(null as any);
@@ -289,15 +335,15 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return result200;
+
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
 
@@ -332,11 +378,11 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -366,11 +412,11 @@ export class TodoListsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+                return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<void>(null as any);
@@ -409,21 +455,21 @@ export class WeatherForecastsClient {
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return result200;
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(WeatherForecast.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
         return Promise.resolve<WeatherForecast[]>(null as any);
@@ -732,6 +778,42 @@ export class TodosVm implements ITodosVm {
     }
 }
 
+export class BlogsVm implements IBlogsVm {
+    lists: BlogDto[];
+
+    constructor(data?: IBlogsVm) {
+        if (data)
+            for (var property in data) {
+                (<any>this)[property] = (<any>data)[property];
+            }
+    }
+
+    init(_data?: any) {
+        if (Array.isArray(_data["lists"])) {
+            this.lists = [] as any;
+            for (let item of _data["lists"])
+                this.lists.push(BlogDto.fromJs(item))
+        }
+    }
+
+    static fromJs(data?: any): BlogsVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new BlogsVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.lists)) {
+            data["lists"] = [];
+            for (let item of this.lists)
+                data["lists"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
 export interface ITodosVm {
     priorityLevels?: LookupDto[];
     lists?: TodoListDto[];
@@ -888,7 +970,193 @@ export interface ITodoItemDto {
     priority?: number;
     note?: string | undefined;
 }
+export interface IBlogDto {
+    id?: number;
+    title?: string;
+    content?: string;
+    link?: string;
+    image?: number[] | undefined;
+    createdDate?: Date;
+    lastupdatedDate?: Date;
+    blogParts?: BlogPartDto[];
+}
 
+export interface IBlogPartDto {
+    partNo?: number;
+    text?: string;
+    images?: ImageDto[];
+    codeBlocks?: CodeBlockDto[];
+}
+export interface IImageDto {
+    imageNo?: number;
+    imageInfo?: string;
+}
+export interface ICodeBlockDto {
+    codeNo?: number;
+    code?: string;
+}
+export class BlogDto implements IBlogDto {
+    id?: number;
+    title?: string | undefined;
+    content?: string | undefined;
+    link?: string | undefined;
+    image?: number[] | undefined;
+    createdDate?: Date | undefined;
+    lastupdatedDate?: Date | undefined;
+    blogParts?: BlogPartDto[] | undefined;
+    constructor(data?: IBlogDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    (<any>this)[property] = (<any>data)[property];
+                }
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.content = _data["content"];
+            this.link = _data["link"];
+            this.image = _data["image"];
+            this.createdDate = _data["createdDate"];
+            this.lastupdatedDate = _data["lastUpdatedDate"];
+            this.blogParts = _data["blogParts"];
+        }
+    }
+
+    static fromJs(data: any): BlogDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BlogDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["content"] = this.content;
+        data["title"] = this.title;
+        data["link"] = this.link;
+        data["image"] = this.image;
+        data["createdDate"] = this.createdDate;
+        data["lastUpdatedDate"] = this.lastupdatedDate;
+        data["blogParts"] = this.blogParts;
+        return data;
+    }
+}
+
+export class BlogPartDto implements IBlogPartDto {
+    partNo?: number | undefined;
+    text?: string | undefined;
+    images?: ImageDto[] | undefined;
+    codeBlocks?: CodeBlockDto[] | undefined;
+
+    constructor(data?: IBlogPartDto) {
+        for (var property in data) {
+            if (data.hasOwnProperty(property)) {
+                (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.partNo = _data["partNo"];
+            this.text = _data["text"];
+            this.images = _data["images"];
+            this.codeBlocks = _data["codeBlocks"];
+        }
+    }
+
+    static fromJs(data: any): BlogPartDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ImageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["partNo"] = this.partNo;
+        data["images"] = this.images;
+        data["text"] = this.text;
+        data["codeBlocks"] = this.codeBlocks;
+        return data;
+    }
+}
+export class ImageDto implements IImageDto {
+    imageNo?: number | undefined;
+    imageInfo?: string | undefined;
+
+    constructor(data?: IImageDto) {
+        for (var property in data) {
+            if (data.hasOwnProperty(property)) {
+                (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.imageNo = _data["imageNo"];
+            this.imageInfo = _data["imageInfo"];
+        }
+    }
+
+    static fromJs(data: any): ImageDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ImageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["imageNo"] = this.imageNo;
+        data["imageInfo"] = this.imageInfo;
+        return data;
+    }
+}
+export class CodeBlockDto implements ICodeBlockDto {
+    codeNo?: number | undefined;
+    code?: string | undefined;
+
+    constructor(data?: ICodeBlockDto) {
+        for (var property in data) {
+            if (data.hasOwnProperty(property)) {
+                (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.code = _data["code"];
+            this.codeNo = _data["codeNo"];
+        }
+    }
+
+    static fromJs(data: any): CodeBlockDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CodeBlockDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["codeNo"] = this.codeNo;
+        return data;
+    }
+}
+
+export interface IBlogsVm {
+    lists?: BlogDto[];
+}
 export class CreateTodoListCommand implements ICreateTodoListCommand {
     title?: string | undefined;
     description?: string | undefined;

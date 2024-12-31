@@ -1,8 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.TodoLists.Queries.GetTodos
 {
@@ -20,13 +16,14 @@ namespace Application.TodoLists.Queries.GetTodos
 
         public async Task<TodosVm> Handle(GetTodosQuery request, CancellationToken cancellationToken)
         {
-            return new TodosVm
+            var a = new TodosVm
             {
                 Lists = await _context.TodoLists.AsNoTracking()
                 .ProjectTo<TodoListDto>(_mapper.ConfigurationProvider)
                 .OrderBy(x => x.Title)
                 .ToListAsync()
             };
+            return a;
         }
     }
 }

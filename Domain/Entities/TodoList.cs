@@ -6,7 +6,6 @@ namespace Domain.Entities
     {
         public string? Title { get; set; }
         public string Description { get; set; }
-
         public IList<TodoItem> Items { get; private set; } = new List<TodoItem>();
     }
 }

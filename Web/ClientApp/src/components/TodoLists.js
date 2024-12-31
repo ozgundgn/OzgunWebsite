@@ -50,7 +50,7 @@ export class TodoLists extends Component {
     }
     async saveTodoList() {
         let client = new TodoListsClient();
-        if (this.state.id == "") {
+        if (this.state.id == "" || this.state.id == undefined) {
             var newId = await client.createTodoList(new CreateTodoListCommand({
                 title: this.state.title,
                 description: this.state.description

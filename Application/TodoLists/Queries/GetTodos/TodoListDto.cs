@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using Domain.Entities;
-
-namespace Application.TodoLists.Queries.GetTodos;
+﻿namespace Application.TodoLists.Queries.GetTodos;
 
 public class TodoListDto
 {
@@ -17,12 +14,4 @@ public class TodoListDto
     public string? Description { get; init; }
 
     public IReadOnlyCollection<TodoItemDto> Items { get; init; }
-
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<TodoList, TodoListDto>();
-        }
-    }
 }

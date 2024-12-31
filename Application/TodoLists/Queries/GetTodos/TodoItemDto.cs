@@ -1,9 +1,4 @@
-﻿
-
-using AutoMapper;
-using Domain.Entities;
-
-namespace Application.TodoLists.Queries.GetTodos;
+﻿namespace Application.TodoLists.Queries.GetTodos;
 
 public class TodoItemDto
 {
@@ -18,11 +13,11 @@ public class TodoItemDto
 
     public string? Note { get; init; }
 
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemDto>().ReverseMap();
-        }
-    }
+    //private class Mapping : Profile
+    //{
+    //    public Mapping()
+    //    {
+    //        CreateMap<TodoItem, TodoItemDto>().ReverseMap();
+    //    }
+    //}
 }
